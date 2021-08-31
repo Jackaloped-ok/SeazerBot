@@ -35,10 +35,10 @@ def sendASong(tries):
     while True:
         if tries == 5:
             print('this shit didn\'t work, apparently')
-            with open(r'{}\seazerlog.txt'.format(os.path.dirname(__file__)),\
+            with open('seazerlog.txt',\
                  'a', encoding='utf-8') as seazerLog:
                      seazerLog.write('FAILED, attempt {}, resetting queue.\n'.format(tries))
-            resetFile = open(r'{}\userQueue.txt'.format(os.path.dirname(__file__)), 'w', encoding = 'utf8')
+            resetFile = open(r'{}/userQueue.txt'.format(os.path.dirname(__file__)), 'w', encoding = 'utf8')
             resetFile.close()
             sendASong(0)
             break
@@ -47,21 +47,21 @@ def sendASong(tries):
                 data = tweetSong(songs)
                 print('Lines pulled from userQueue.txt:')
                 print(data)
-                with open(r'{}\seazerlog.txt'.format(os.path.dirname(__file__)),\
+                with open('seazerlog.txt',\
                  'a', encoding='utf-8') as seazerLog:
                      seazerLog.write(str(data) + '\n')
                 tries = 0
                 break
             except:
                 print('Error: Too long probably.')
-                with open(r'{}\seazerlog.txt'.format(os.path.dirname(__file__)),\
+                with open('seazerlog.txt',\
                  'a', encoding='utf-8') as seazerLog:
                      seazerLog.write('Failed, attempt {}, trying again.\n'.format(tries))
                 tries = tries + 1
-                time.sleep(5)
+                time.sleep(1)
 
 print(os.path.dirname(__file__))
-with open(r'{}\seazerlog.txt'.format(os.path.dirname(__file__)), 'w', encoding='utf-8') \
+with open('seazerlog.txt', 'w', encoding='utf-8') \
 as seazerLog:
     seazerLog.write('Log opened.\n\n')
 

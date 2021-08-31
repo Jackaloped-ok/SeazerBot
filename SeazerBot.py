@@ -64,7 +64,7 @@ screen_name        = str(screen_name)
 random.seed()
 
 #this be where the songs are stored
-folderName = (r'{}\songs'.format(os.path.dirname(__file__)))
+folderName = (r'{}/songs'.format(os.path.dirname(__file__)))
 listOfSongs = []
 
 #global variable to check if tweet has been added to queue already
@@ -154,7 +154,7 @@ def addToQueue(title, name, tweetID):
         #add simple title and uname to text file "userQueue.txt"
         while True:
             try:
-                userQueue = open(r'{}\userQueue.txt'.format(os.path.dirname(__file__)), 'a', encoding = 'utf8')
+                userQueue = open(r'{}/userQueue.txt'.format(os.path.dirname(__file__)), 'a', encoding = 'utf8')
                 break
             except IOError:
                 print('addToQueue file open already.')
@@ -232,7 +232,7 @@ def pullQueue(songs):
     #open the queue and read into memory "lines"
     while True:
         try:
-            userQueue = open(r'{}\userQueue.txt'.format(os.path.dirname(__file__)), 'r', encoding = 'utf8')
+            userQueue = open(r'{}/userQueue.txt'.format(os.path.dirname(__file__)), 'r', encoding = 'utf8')
             break
         except IOError:
             print('pullQueue read file open already')
@@ -242,14 +242,14 @@ def pullQueue(songs):
     userQueue.close()
     #check if queue is empty, if so then return random song
     if len(lines) < 2:
-        userQueue = open(r'{}\userQueue.txt'.format(os.path.dirname(__file__)), 'w', encoding = 'utf8')
+        userQueue = open(r'{}/userQueue.txt'.format(os.path.dirname(__file__)), 'w', encoding = 'utf8')
         userQueue.close()
         return pullRandom(songs)
     else:
         title = lines[0]
         userRequest = lines[1]
         #to remove the top entries we have to rewrite the whole file l m a o
-        userQueue = open(r'{}\userQueue.txt'.format(os.path.dirname(__file__)), 'w', encoding = 'utf8')
+        userQueue = open(r'{}/userQueue.txt'.format(os.path.dirname(__file__)), 'w', encoding = 'utf8')
         #rewrites file, excluding first two lines
         for line in lines[2:]:
             userQueue.write(line)
@@ -282,7 +282,7 @@ def pullSong(simpleTitle):
     simpleTitle = simpleTitle.replace('.txt', '')
     #how many lines from the song to tweet
     numLines = 3
-    jukebox = open(r'{}\{}.txt'.format(folderName, simpleTitle), 'r', encoding = 'utf8')
+    jukebox = open(r'{}/{}.txt'.format(folderName, simpleTitle), 'r', encoding = 'utf8')
     #find how many lines are in the song
     lines = jukebox.readlines()
     jukebox.close()
@@ -313,7 +313,7 @@ def pullSong(simpleTitle):
             if len(lines[0]) + len(lyrics) + len('"\n\n"\n  -  ') < 280:
                 break
             else:
-                with open(r'{}\seazerlog.txt'.format(os.path.dirname(__file__)), 'a', encoding='utf-8') as r:
+                with open(r'{}/seazerlog.txt'.format(os.path.dirname(__file__)), 'a', encoding='utf-8') as r:
                     r.write('ERROR, TOO LONG:\nThese are the lines:\n{}\n'.format(lyrics))
                 
                 justRandomizeIt = justRandomizeIt + 1
@@ -324,7 +324,7 @@ def pullSong(simpleTitle):
 #params: str simpleTitle
 #return: arr: str title, str translator
 def pullSongData(simpleTitle):
-    jukebox = open(r'{}\{}.txt'.format(folderName, simpleTitle), 'r', encoding = 'utf8')
+    jukebox = open(r'{}/{}.txt'.format(folderName, simpleTitle), 'r', encoding = 'utf8')
     songData = str
     lines = jukebox.readlines()
     jukebox.close()

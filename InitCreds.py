@@ -5,7 +5,7 @@ import os
 #return: arr creds: str
 def initCreds():
     #contains user data for twitter
-    credsFile = (r'{}\creds'.format(os.path.dirname(__file__)))
+    credsFile = (r'{}/creds'.format(os.path.dirname(__file__)))
     with open(credsFile, 'r') as f:
         creds = f.read()
         
